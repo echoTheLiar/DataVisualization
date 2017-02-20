@@ -16,8 +16,14 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        
+        <!-- Applications that use spring-boot-devtools will automatically restart whenever files on the classpath change -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -32,6 +38,8 @@
 
     <build>
         <plugins>
+            <!-- Spring Boot includes a Maven plugin that can package the project as an executable jar. 
+            Add the plugin to your <plugins> section if you want to use it -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
