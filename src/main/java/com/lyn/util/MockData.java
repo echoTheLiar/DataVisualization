@@ -29,13 +29,13 @@ public class MockData {
 	 */
 	public static int[] mockIntArray(int arrayCount) {
 		if (arrayCount <= 0) {
-			arrayCount = MockData.DEFAULT_COUNT_OF_ARRAY;
+			arrayCount = DEFAULT_COUNT_OF_ARRAY;
 		}
 
 		int[] intArray = new int[arrayCount];
 
 		for (int i = 0; i < arrayCount; i++) {
-			intArray[i] = MockData.generateRandomInt();
+			intArray[i] = generateRandomInt();
 		}
 
 		return intArray;
