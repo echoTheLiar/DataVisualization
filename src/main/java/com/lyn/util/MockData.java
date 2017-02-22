@@ -5,7 +5,7 @@ import java.util.Random;
 public class MockData {
 
 	private static final int DEFAULT_COUNT_OF_ARRAY = 5;
-	private static final int DEFAULT_RANDOM_BOUND = 100;
+	private static final int DEFAULT_RANDOM_BOUND = 1000;
 	private static final int DEFAULT_STRING_LENGTH = 10;
 
 	private static final String LETTERS = "abcdefghijkllmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -17,17 +17,19 @@ public class MockData {
 	 * 
 	 * @return an {@code int} array with random values
 	 */
-	public static int[] mockIntArray() {
-		return mockIntArray(DEFAULT_COUNT_OF_ARRAY);
+	public static int[] generateIntArray() {
+		return generateIntArray(DEFAULT_COUNT_OF_ARRAY, DEFAULT_RANDOM_BOUND);
 	}
 
 	/**
-	 * mock an {@code int} array using the given array count
+	 * mock an {@code int} array using the given array count and the random
+	 * bound
 	 * 
 	 * @param arrayCount
+	 * @param randomBound
 	 * @return an {@code int} array with random values
 	 */
-	public static int[] mockIntArray(int arrayCount) {
+	public static int[] generateIntArray(int arrayCount, int randomBound) {
 		if (arrayCount <= 0) {
 			arrayCount = DEFAULT_COUNT_OF_ARRAY;
 		}
@@ -35,7 +37,7 @@ public class MockData {
 		int[] intArray = new int[arrayCount];
 
 		for (int i = 0; i < arrayCount; i++) {
-			intArray[i] = generateRandomInt();
+			intArray[i] = generateRandomInt(randomBound);
 		}
 
 		return intArray;
@@ -48,6 +50,16 @@ public class MockData {
 	 */
 	public static int generateRandomInt() {
 		return random.nextInt(DEFAULT_RANDOM_BOUND);
+	}
+
+	/**
+	 * generate {@code int} number using the given bound
+	 * 
+	 * @param randomBound
+	 * @return a random {@code int} number
+	 */
+	public static int generateRandomInt(int randomBound) {
+		return random.nextInt(randomBound);
 	}
 
 	/**
@@ -79,4 +91,12 @@ public class MockData {
 		return stringBuffer.toString();
 	}
 
+	/**
+	 * 
+	 * @param str
+	 * @return {@code true} if the input {@code String} is null or ""
+	 */
+	public static boolean empty(final String str) {
+		return str == null || str.trim().isEmpty();
+	}
 }

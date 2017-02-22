@@ -2,9 +2,38 @@
 <html>
 <head>
 <meta charset="UTF-8"></meta>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="../../../js/echarts.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="linePanel" style="width: 1000px; height: 600px;"></div>
+	<script type="text/javascript">
+		var myChart = echarts.init(document.getElementById('linePanel'));
+		// 显示标题，图例和空的坐标轴
+		myChart.setOption({
+			title : {
+				text : 'test-line'
+			},
+			tooltip : {},
+			legend : {
+				data : []
+			},
+			xAxis : {
+				data : []
+			},
+			yAxis : {},
+			series : []
+		});
 
+		// 异步加载数据
+		$.get('/api/line?num=15').done(function(data) {
+			// 填入数据
+			myChart.setOption({
+				legend : data.obj.legend,
+				series : data.obj.echartsSeriesList
+			});
+		});
+	</script>
 </body>
 </html>
