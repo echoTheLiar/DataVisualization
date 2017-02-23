@@ -1,4 +1,4 @@
-package com.lyn.util;
+package com.lyn.code.util;
 
 public class CustomizeEcharts {
 

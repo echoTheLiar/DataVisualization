@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lyn.entity.EchartsLegend;
-import com.lyn.entity.EchartsOption;
-import com.lyn.entity.EchartsSeries;
-import com.lyn.util.APIStatusCode;
-import com.lyn.util.JsonResult;
-import com.lyn.util.MockData;
+import com.lyn.code.entity.EchartsLegend;
+import com.lyn.code.entity.EchartsOption;
+import com.lyn.code.entity.EchartsSeries;
+import com.lyn.code.util.APIStatusCode;
+import com.lyn.code.util.JsonResult;
+import com.lyn.code.util.MockData;
 
 @RestController
 public class LineDataController {
@@ -35,7 +35,7 @@ public class LineDataController {
 
 		count = Integer.parseInt(num);
 
-		if (count > LineDataController.MAX_NUM_VALUE) {
+		if (count > MAX_NUM_VALUE) {
 			return new JsonResult(APIStatusCode.INPUT_TOO_LARGE, null);
 		}
 

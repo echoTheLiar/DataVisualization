@@ -1,4 +1,4 @@
-package com.lyn.util;
+package com.lyn.code.util;
 
 /**
  * format api return result

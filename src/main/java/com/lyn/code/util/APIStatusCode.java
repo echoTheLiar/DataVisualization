@@ -1,4 +1,4 @@
-package com.lyn.util;
+package com.lyn.code.util;
 
 /**
  * api status code and msg

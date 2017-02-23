@@ -1,4 +1,4 @@
-package com.lyn.entity;
+package com.lyn.code.entity;
 
 import java.util.List;
 
