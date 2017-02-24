@@ -17,39 +17,53 @@ import com.lyn.code.util.MockData;
 @RestController
 public class LineDataController {
 
-	public static final int MAX_NUM_VALUE = 30;
+	public static final int MAX_NUM_VALUE = 1000000;
 
 	private static String[] legendDataArray;// Echarts中要求legend.data属性和series中的name保持一致
 	private static int count;
 
+	/**
+	 * 
+	 * @param num
+	 * @return api response in json format
+	 */
 	@RequestMapping(value = "api/line", method = RequestMethod.GET)
 	public JsonResult echartsOption(@RequestParam(value = "num") String num) {
-		EchartsLegend legend;
-		String[] xAxis = {};
-		String[] yAxis = {};
-		ArrayList<EchartsSeries> echartsSeriesList = new ArrayList<EchartsSeries>();
+		try {
+			EchartsLegend legend;
+			String[] xAxis = {};
+			String[] yAxis = {};
+			ArrayList<EchartsSeries> echartsSeriesList = new ArrayList<EchartsSeries>();
 
-		if (!num.matches("\\d+")) {
-			return new JsonResult(APIStatusCode.INVALID_INPUT, null);
+			if (!num.matches("\\d+")) {
+				return new JsonResult(APIStatusCode.INVALID_INPUT, null);
+			}
+
+			count = Integer.parseInt(num);
+
+			if (count > MAX_NUM_VALUE) {
+				return new JsonResult(APIStatusCode.INPUT_TOO_LARGE, null);
+			}
+
+			legendDataArray = new String[count];
+
+			for (int i = 0; i < count; i++) {
+				echartsSeriesList.add(getEchartsSeries(i));
+			}
+
+			legend = new EchartsLegend(legendDataArray);
+			// legend = new
+			// EchartsLegend(CustomizeEcharts.adjustLegendData(legendDataArray));
+			return new JsonResult(APIStatusCode.SUCCESS, new EchartsOption(legend, xAxis, yAxis, echartsSeriesList));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
 		}
 
-		count = Integer.parseInt(num);
+		return new JsonResult(APIStatusCode.UNKNOWN_ERROR, null);
 
-		if (count > MAX_NUM_VALUE) {
-			return new JsonResult(APIStatusCode.INPUT_TOO_LARGE, null);
-		}
-
-		legendDataArray = new String[count];
-
-		for (int i = 0; i < count; i++) {
-			echartsSeriesList.add(getEchartsSeries(i));
-		}
-
-		legend = new EchartsLegend(legendDataArray);
-		// legend = new
-		// EchartsLegend(CustomizeEcharts.adjustLegendData(legendDataArray));
-
-		return new JsonResult(APIStatusCode.SUCCESS, new EchartsOption(legend, xAxis, yAxis, echartsSeriesList));
 	}
 
 	/**
