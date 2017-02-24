@@ -7,17 +7,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lyn.code.entity.EchartsGrid;
 import com.lyn.code.entity.EchartsLegend;
 import com.lyn.code.entity.EchartsOption;
 import com.lyn.code.entity.EchartsSeries;
 import com.lyn.code.util.APIStatusCode;
+import com.lyn.code.util.CustomizeEcharts;
 import com.lyn.code.util.JsonResult;
 import com.lyn.code.util.MockData;
 
 @RestController
 public class LineDataController {
 
-	public static final int MAX_NUM_VALUE = 1000000;
+	public static final int MAX_NUM_VALUE = 100;
 
 	private static String[] legendDataArray;// Echarts中要求legend.data属性和series中的name保持一致
 	private static int count;
@@ -31,6 +33,7 @@ public class LineDataController {
 	public JsonResult echartsOption(@RequestParam(value = "num") String num) {
 		try {
 			EchartsLegend legend;
+			EchartsGrid grid;
 			String[] xAxis = {};
 			String[] yAxis = {};
 			ArrayList<EchartsSeries> echartsSeriesList = new ArrayList<EchartsSeries>();
@@ -51,10 +54,15 @@ public class LineDataController {
 				echartsSeriesList.add(getEchartsSeries(i));
 			}
 
-			legend = new EchartsLegend(legendDataArray);
-			// legend = new
-			// EchartsLegend(CustomizeEcharts.adjustLegendData(legendDataArray));
-			return new JsonResult(APIStatusCode.SUCCESS, new EchartsOption(legend, xAxis, yAxis, echartsSeriesList));
+			// legend = new EchartsLegend(legendDataArray);
+			
+			// adjust the legend to avoid the overlapping
+			legend = new EchartsLegend(
+					CustomizeEcharts.adjustLegendData(legendDataArray));
+			// set the distance of which the component is from the top of the container 
+			grid = new EchartsGrid(CustomizeEcharts.setGridTop(legendDataArray));
+			
+			return new JsonResult(APIStatusCode.SUCCESS, new EchartsOption(legend, grid, xAxis, yAxis, echartsSeriesList));
 
 		} catch (Exception e) {
 			// TODO: handle exception
