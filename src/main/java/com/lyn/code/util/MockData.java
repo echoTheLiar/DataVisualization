@@ -82,13 +82,13 @@ public class MockData {
 			stringLength = DEFAULT_STRING_LENGTH;
 		}
 
-		StringBuffer stringBuffer = new StringBuffer();
+		StringBuilder stringBuilder = new StringBuilder();
 
 		for (int i = 0; i < stringLength; i++) {
-			stringBuffer.append(LETTERS.charAt(random.nextInt(LETTERS.length())));
+			stringBuilder.append(LETTERS.charAt(random.nextInt(LETTERS.length())));
 		}
 
-		return stringBuffer.toString();
+		return stringBuilder.toString();
 	}
 
 	/**
