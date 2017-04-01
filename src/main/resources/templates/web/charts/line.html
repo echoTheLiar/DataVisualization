@@ -6,7 +6,26 @@
 </head>
 <body>
 	<div th:include="web/common/nav"></div>
-	<div id="linePanel" style="width: 1000px; height: 600px;"></div>
+	<form class="form-inline" style="margin-left: 300px;">
+		<div class="form-group col-md-2">
+			<input id="lineNum" type="text" class="form-control"
+				placeholder="输入要生成的线条数目"></input>
+		</div>
+		<div class="form-group col-md-1"></div>
+		<div class="form-group col-md-2">
+			<select class="selectpicker">
+				<option>Test Line Type</option>
+				<option>Test</option>
+				<option>Test</option>
+			</select>
+		</div>
+		<div class="form-group col-md-2"></div>
+		<button id="generateLine" type="button" class="btn btn-primary">生成线条</button>
+	</form>
+
+	<hr></hr>
+	<div id="linePanel"
+		style="width: 1000px; height: 600px; margin-left: 200px;"></div>
 	<script src="../../../js/charts/line.js"></script>
 </body>
 </html>

@@ -1,6 +1,9 @@
-var myChart = echarts.init(document.getElementById('linePanel'));
+var lineChart = echarts.init(document.getElementById('linePanel'));
+lineChart.showLoading();
+
 // 显示标题，图例和空的坐标轴
-myChart.setOption({
+lineChart.setOption({
+	notMerge: true,
 	title : {
 		text : 'test-line'
 	},
@@ -18,12 +21,31 @@ myChart.setOption({
 	series : []
 });
 
-// 异步加载数据
-$.get('/api/line?num=35').done(function(data) {
-	// 填入数据
-	myChart.setOption({
-		legend : data.obj.legend,
-		grid : data.obj.grid,
-		series : data.obj.echartsSeriesList
+// 设置初始值
+getLineCharts(10);
+
+$("#generateLine").click(
+		function() {
+			var lineNum = $("input[id='lineNum']").val();
+			getLineCharts(lineNum);
+		}
+);
+
+function getLineCharts(num) {
+	// 异步加载数据
+	$.get('/api/line?num='+num).done(function(data) {
+		if (data.code == 200) {
+			lineChart.hideLoading();
+			// 填入数据
+			lineChart.setOption({
+				legend : data.obj.legend,
+				grid : data.obj.grid,
+				series : data.obj.echartsSeriesList
+			});
+		}
+		else {
+			alert(data.msg);
+		}
+		
 	});
-});
+}
