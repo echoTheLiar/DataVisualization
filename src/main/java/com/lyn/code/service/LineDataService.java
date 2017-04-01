@@ -13,7 +13,7 @@ import com.lyn.code.util.JsonResult;
 import com.lyn.code.util.MockData;
 
 public class LineDataService {
-    public static final int MAX_NUM_VALUE = 100;
+    public static final int MAX_NUM_VALUE = 39;
 
     private static String[] legendDataArray;// Echarts中要求legend.data属性和series中的name保持一致
     private static int count;
