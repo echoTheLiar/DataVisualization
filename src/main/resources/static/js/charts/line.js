@@ -22,7 +22,7 @@ lineChart.setOption({
 });
 
 // 设置初始值
-getLineCharts(10);
+getLineCharts(6);
 
 $("#generateLine").click(
 		function() {
@@ -36,6 +36,7 @@ function getLineCharts(num) {
 	$.get('/api/line?num='+num).done(function(data) {
 		if (data.code == 200) {
 			lineChart.hideLoading();
+			
 			// 填入数据
 			lineChart.setOption({
 				legend : data.obj.legend,
